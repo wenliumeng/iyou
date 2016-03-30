@@ -8,7 +8,7 @@ public class FileUtils {
     public FileUtils() {}
 
     /**
-     * Out of the filename's %20
+     * 将文件名中的%20转换为空格
      * @param fileName
      * @return
      */
