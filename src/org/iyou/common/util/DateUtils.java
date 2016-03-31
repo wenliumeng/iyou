@@ -10,12 +10,6 @@ import java.util.GregorianCalendar;
  */
 public class DateUtils {
 
-    public static void main(String[] args) {
-
-
-        System.out.println(getYearCode());
-    }
-
     /**
      * 根据格式获取时间字符串
      * <font color="red">支持格式为 yyyy.MM.dd G 'at' hh:mm:ss z 如 '2002-1-1 AD at 22:10:59 PSD'<br>
@@ -23,7 +17,6 @@ public class DateUtils {
      * yy/MM/dd HH:mm:ss pm 如 '2002/1/1 17:55:00 pm'<br>
      * yy-MM-dd HH:mm:ss 如 '2002-1-1 17:55:00' <br>
      * yy-MM-dd HH:mm:ss am 如 '2002-1-1 17:55:00 am' <br></font>
-     *
      * @param format String 字符串<br>
      * @return String 日期<br>
      */
