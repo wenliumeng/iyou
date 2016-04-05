@@ -31,7 +31,7 @@ public class ExceptionUtils {
      */
     public static void logTrace(Throwable cause){
         String traceError = Config.getInstance().getProperty("trace.log");
-        if(traceError.equals("true") && (cause != null))
+        if (("true".equals(traceError)) && (cause != null))
         {
             ByteArrayOutputStream byos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(byos);
