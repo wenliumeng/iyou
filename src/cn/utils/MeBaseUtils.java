@@ -1,5 +1,6 @@
 package cn.utils;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.iyou.common.exception.BusException;
@@ -11,13 +12,6 @@ import org.omg.Dynamic.Parameter;
  */
 public class MeBaseUtils {
     protected static final Log log = LogFactory.getLog(MeBaseUtils.class);
-
-    public static void main(String[] args) {
-        int[] x = int2bytes(99);
-        for(int i = 0;i < x.length;i++){
-            System.out.println(x[i]);
-        }
-    }
 
     /**
      * 将不同类型的数组用指定分隔符分隔后组成字符串
@@ -102,10 +96,20 @@ public class MeBaseUtils {
         return ints;
     }
 
+    /**
+     * int类型转换成byte类型，超过256自动进一
+     * @param num
+     * @return
+     */
     public static int[] int2bytes(int num){
         return new int[]{(byte) (num >> 8 & 0xFF),(byte)(num & 0xFF)};
     }
 
+    /**
+     * byte类型转换成心态类型
+     * @param bs
+     * @return
+     */
     public static short bytes2int(int[] bs){
         if(bs.length >= 2){
             return (short)((bs[0] & 0xFF) << 8 | 0xFF & bs[1]);
@@ -113,5 +117,73 @@ public class MeBaseUtils {
         throw new BusException("{seymour.MeBaseUtils} bytes length not less 2");
     }
 
+    /**
+     * 以：分隔的int类型字符串转化为二进制
+     * @param ints
+     * @return
+     */
+    public static String ints2binary(String ints){
+        StringBuffer sb = new StringBuffer();
+
+        String[] intstrs = ints.split(":");
+        int num = 0;
+        for(int i =0;i < intstrs.length;i++){
+            num = Integer.valueOf(intstrs[i]).intValue();
+            sb.append(HexUtils.byteToBit((byte)num));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 对象数组添加元素
+     * @param objs
+     * @param ele
+     * @return
+     */
+    public static Object[] addArray(Object[] objs, String... ele)
+    {
+        return ArrayUtils.addAll(objs, ele);
+    }
+
+    /**
+     * int类型数组添加元素
+     * @param contents
+     * @param ele
+     * @return
+     */
+    public static int[] addArray(int[] contents, int... ele)
+    {
+        return ArrayUtils.addAll(contents, ele);
+    }
+
+    /**
+     * int byte类型互转
+     * @param value
+     * @return
+     */
+    public static byte[] intToBytes(int value)
+    {
+        byte[] src = new byte[4];
+        src[3] = ((byte)(value >> 24 & 0xFF));
+        src[2] = ((byte)(value >> 16 & 0xFF));
+        src[1] = ((byte)(value >> 8 & 0xFF));
+        src[0] = ((byte)(value & 0xFF));
+        return src;
+    }
+
+    /**
+     * int byte类型互转
+     * @param value
+     * @return
+     */
+    public static byte[] intToBytes2(int value)
+    {
+        byte[] src = new byte[4];
+        src[0] = ((byte)(value >> 24 & 0xFF));
+        src[1] = ((byte)(value >> 16 & 0xFF));
+        src[2] = ((byte)(value >> 8 & 0xFF));
+        src[3] = ((byte)(value & 0xFF));
+        return src;
+    }
 
 }
