@@ -1,23 +1,19 @@
 package cn.utils;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.iyou.common.exception.BusException;
-import org.omg.Dynamic.Parameter;
 
 /**
  * Created by seyMour on 2016/4/1.
  * ☞120465271@qq.com☜
  */
-public class MeBaseUtils {
-    protected static final Log log = LogFactory.getLog(MeBaseUtils.class);
+public class BaseUtils {
 
     /**
      * 将不同类型的数组用指定分隔符分隔后组成字符串
-     * @param obj
-     * @param separator
-     * @return
+     * @param obj 传入类型
+     * @param separator 分隔符
+     * @return 字符串
      */
     public static String splitJoint(Object[] obj,String separator){
         StringBuffer sb = new StringBuffer(obj.length*3);
@@ -31,17 +27,17 @@ public class MeBaseUtils {
 
     /**
      * 截取任意元素的数组
-     * @param obj
-     * @param from
-     * @param end
-     * @return
+     * @param obj 数组元素
+     * @param from 截取开始处
+     * @param end 截取停止处
+     * @return 返回的数组
      */
     public static Object[] getArray(Object[] obj,int from,int end){
         if(end > obj.length -1){
-            throw new BusException("{seymour.MeBaseUtils}数组越界！");
+            throw new BusException("{seymour.BaseUtils}数组越界！");
         }
         if(from > end){
-            throw new BusException("{seymour.MeBaseUtils}截取范围错误！");
+            throw new BusException("{seymour.BaseUtils}截取范围错误！");
         }
         int sum = end - from + 1;
         Object[] newObj = new Object[sum];
@@ -54,14 +50,14 @@ public class MeBaseUtils {
 
     /**
      * 截取任意对象数组再拼装成字符串
-     * @param obj
-     * @param from
-     * @param end
-     * @return
+     * @param obj 对象数组
+     * @param from 截取开始处
+     * @param end 截取停止处
+     * @return 返回的字符串
      */
     public static String getArraystr(Object[] obj,int from,int end) {
         if (end > obj.length - 1) {
-            throw new BusException("{seymour.MeBaseUtils}数组越界！");
+            throw new BusException("{seymour.BaseUtils}数组越界！");
         }
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = from; i <= end; i++) {
@@ -71,8 +67,8 @@ public class MeBaseUtils {
     }
 
     /**
-     * 字符数串组转化为
-     * @param strings
+     * 字符数串组转化为Int类型数组
+     * @param strings 字符串
      * @return
      */
     public static int[] string2ints(String[] strings){
@@ -114,7 +110,7 @@ public class MeBaseUtils {
         if(bs.length >= 2){
             return (short)((bs[0] & 0xFF) << 8 | 0xFF & bs[1]);
         }
-        throw new BusException("{seymour.MeBaseUtils} bytes length not less 2");
+        throw new BusException("{seymour.BaseUtils} bytes length not less 2");
     }
 
     /**
