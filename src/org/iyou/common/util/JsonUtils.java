@@ -35,14 +35,15 @@ public class JsonUtils {
     private static JsonConfig getJsonConfig(Domain domain, boolean ignoreColl) {
         return defaultJsonConfig(ignoreColl);
     }
-    public static JsonConfig getJsonConfig(Domain domian, String[] ignoreColls) {
+
+    public static JsonConfig getJsonConfig(Domain domian, String[] notIgnoreColls) {
         JsonConfig jsonConfig = new JsonConfig();
         IgnoreFieldProcessorImpl ignoreFieldProcessor = new IgnoreFieldProcessorImpl(true);
-        ignoreFieldProcessor.setNotIgnoreColls(ignoreColls);
+        ignoreFieldProcessor.setNotIgnoreColls(notIgnoreColls);
         jsonConfig.setJsonPropertyFilter(ignoreFieldProcessor);
         jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
         jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
-        jsonConfig.setExcludes((String[]) BaseUtils.addArray(ignoreColls,new String[]{"hibernateLazyInitializer"}));
+        jsonConfig.setExcludes((String[]) BaseUtils.addArray(notIgnoreColls,new String[]{"hibernateLazyInitializer"}));
         return jsonConfig;
     }
 
@@ -61,6 +62,7 @@ public class JsonUtils {
         jsonConfig.setJsonPropertyFilter(ignoreFieldProcessor);
         jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
         jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
-        return null;
+        jsonConfig.setExcludes((String[]) BaseUtils.addArray(notIgnoreColls,new String[]{"hibernateLazyInitializer"}));
+        return jsonConfig;
     }
 }
