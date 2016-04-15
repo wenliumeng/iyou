@@ -15,6 +15,46 @@ import java.util.List;
  */
 public class JsonUtils {
 
+
+    public static JsonConfig getJsonConfig(List<? extends Domain> list) {
+        JsonConfig jsonConfig = new JsonConfig();
+        if ((list != null) && (list.size() > 0)) {
+            return defaultJsonConfig(true);
+        }
+        return jsonConfig;
+    }
+
+    public static JsonConfig getJsonConfig(List<? extends Domain> list, String[] notIgnoreColls) {
+        JsonConfig jsonConfig = new JsonConfig();
+        IgnoreFieldProcessorImpl impl = new IgnoreFieldProcessorImpl(true);
+        impl.setNotIgnoreColls(notIgnoreColls);
+        jsonConfig.setJsonPropertyFilter(impl);
+        jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+        jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+        jsonConfig.setExcludes((String[]) BaseUtils.addArray(notIgnoreColls, new String[]{"hibernateLazyInitializer"}));
+        return jsonConfig;
+    }
+
+    public static JsonConfig getJsonConfig(Domain domain, boolean ignoreColl) {
+        return defaultJsonConfig(ignoreColl);
+    }
+
+    public static JsonConfig getJsonConfig(Domain domain) {
+        return getJsonConfig(domain, true);
+    }
+
+    public static JsonConfig getJsonConfig(Domain domain, String[] notIgnoreColls) {
+        JsonConfig jsonConfig = new JsonConfig();
+        IgnoreFieldProcessorImpl impl = new IgnoreFieldProcessorImpl(true);
+        impl.setNotIgnoreColls(notIgnoreColls);
+        jsonConfig.setJsonPropertyFilter(impl);
+        jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+        jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+        jsonConfig.setExcludes((String[])BaseUtils.addArray(notIgnoreColls, new String[]{"hibernateLazyInitializer"}));
+        return jsonConfig;
+    }
+
+
     private static JsonConfig defaultJsonConfig(boolean ignoreColl) {
         JsonConfig jsonConfig = new JsonConfig();
         //设置json需要忽略的对象
@@ -28,41 +68,5 @@ public class JsonUtils {
         return jsonConfig;
     }
 
-    private static JsonConfig getJsonConfig(Domain domain) {
-        return getJsonConfig(domain, true);
-    }
 
-    private static JsonConfig getJsonConfig(Domain domain, boolean ignoreColl) {
-        return defaultJsonConfig(ignoreColl);
-    }
-
-    public static JsonConfig getJsonConfig(Domain domian, String[] notIgnoreColls) {
-        JsonConfig jsonConfig = new JsonConfig();
-        IgnoreFieldProcessorImpl ignoreFieldProcessor = new IgnoreFieldProcessorImpl(true);
-        ignoreFieldProcessor.setNotIgnoreColls(notIgnoreColls);
-        jsonConfig.setJsonPropertyFilter(ignoreFieldProcessor);
-        jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-        jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
-        jsonConfig.setExcludes((String[]) BaseUtils.addArray(notIgnoreColls,new String[]{"hibernateLazyInitializer"}));
-        return jsonConfig;
-    }
-
-    public static JsonConfig getJsonConfig(List<? extends Domain> list) {
-        JsonConfig jsonConfig = new JsonConfig();
-        if (list != null && list.size() > 0) {
-            return defaultJsonConfig(true);
-        }
-        return jsonConfig;
-    }
-
-    public static JsonConfig getJsonConfig(List<? extends Domain> list, String[] notIgnoreColls) {
-        JsonConfig jsonConfig = new JsonConfig();
-        IgnoreFieldProcessorImpl ignoreFieldProcessor = new IgnoreFieldProcessorImpl(true);
-        ignoreFieldProcessor.setNotIgnoreColls(notIgnoreColls);
-        jsonConfig.setJsonPropertyFilter(ignoreFieldProcessor);
-        jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-        jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
-        jsonConfig.setExcludes((String[]) BaseUtils.addArray(notIgnoreColls,new String[]{"hibernateLazyInitializer"}));
-        return jsonConfig;
-    }
 }
