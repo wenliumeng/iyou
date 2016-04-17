@@ -4,7 +4,6 @@ import org.iyou.common.model.hibernate.HibernateCondition;
 import org.iyou.common.model.hibernate.HibernateOrder;
 
 /**
- * xxx
  * Created by seyMour on 2016/4/14.
  * ☞120465271@qq.com☜
  */

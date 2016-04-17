@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 配置json-lib中的config
+ * 配置json-lib.jar中的config
  * Created by seyMour on 2016/4/1.
  * ☞120465271@qq.com☜
  */

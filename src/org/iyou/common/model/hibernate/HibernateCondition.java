@@ -6,7 +6,6 @@ import org.hibernate.criterion.Restrictions;
 import org.iyou.common.model.Condition;
 
 /**
- * xxx
  * Created by seyMour on 2016/4/14.
  * ☞120465271@qq.com☜
  */

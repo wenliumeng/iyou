@@ -18,6 +18,7 @@ import org.iyou.common.model.hibernate.HibernateCondition;
 import org.iyou.common.model.hibernate.HibernateOrder;
 
 /**
+ * 数据持久化工具类
  * Created by seyMour on 2016/3/31.
  * ☞120465271@qq.com☜
  */
