@@ -1,10 +1,11 @@
 package org.iyou.common.util;
 
-import cn.utils.BaseUtils;
+import cn.utils.MiotoBaseUtils;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
 import org.iyou.common.domain.Domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class JsonUtils {
         jsonConfig.setJsonPropertyFilter(impl);
         jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
         jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
-        jsonConfig.setExcludes((String[]) BaseUtils.addArray(notIgnoreColls, new String[]{"hibernateLazyInitializer"}));
+        jsonConfig.setExcludes((String[]) MiotoBaseUtils.addArray(notIgnoreColls, "hibernateLazyInitializer"));
         return jsonConfig;
     }
 
@@ -44,14 +45,7 @@ public class JsonUtils {
     }
 
     public static JsonConfig getJsonConfig(Domain domain, String[] notIgnoreColls) {
-        JsonConfig jsonConfig = new JsonConfig();
-        IgnoreFieldProcessorImpl impl = new IgnoreFieldProcessorImpl(true);
-        impl.setNotIgnoreColls(notIgnoreColls);
-        jsonConfig.setJsonPropertyFilter(impl);
-        jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-        jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
-        jsonConfig.setExcludes((String[])BaseUtils.addArray(notIgnoreColls, new String[]{"hibernateLazyInitializer"}));
-        return jsonConfig;
+        return getJsonConfig(new ArrayList<Domain>(),notIgnoreColls);
     }
 
 
