@@ -39,7 +39,9 @@ public class BorderLayout extends AbstractLayout {
     private void parsePanelFromDoc() {
         if (this.document != null) {
             List<Element> panelElements = this.document.selectNodes("layout/panel");
-            panelElements.forEach(this::addPanel);
+            for (Element element : panelElements){
+                addPanel(element);
+            }
         }
     }
 
@@ -115,7 +117,7 @@ public class BorderLayout extends AbstractLayout {
             if (jspFile != null) {
                 try {
                     htmls.append(acquireString(pageContext, null, basePath + "/" + jspFile));
-                } catch (IOException | JspException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
